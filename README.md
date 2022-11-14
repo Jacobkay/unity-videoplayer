@@ -9,15 +9,21 @@
 
 #### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  下载安装包
+2.  将安装包拖入工程中
+3.  将"ZVideoPlayer/Prefabs/VideoPlayer"预制体拖入到场景中的canvas中即可
 
-#### 使用说明
+#### API说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  IsVideoPlaying：获取当前播放状态
+2.  PlayTime：获取和设置播放时间，单位秒
+3.  FullScreen：设置全屏状态
+4.  VideoUrl: 设置视频url
+5.  VideoVolum: 设置视频音量
+6.  VideoClip：设置视频clip
+7.  Play()：播放视频
+8.  Pause(): 暂停视频
+9.  Stop()：停止视频
 
 #### 参与贡献
 
