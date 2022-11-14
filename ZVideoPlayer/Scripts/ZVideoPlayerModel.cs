@@ -350,12 +350,7 @@ namespace ZTools
             Source = UnityEngine.Video.VideoSource.Url;
             Url = url;
             videoPlayer.Prepare();
-            StartCoroutine(IsVideoReady(() =>
-            {
-                isVideoPlayEnd = false;
-                TxtLength = GetVideoTime(VideoLength);
-                Play();
-            }));
+            videoPlayer.prepareCompleted += VideoComplete;
         }
         /// <summary>
         /// 设置视频资源
@@ -370,20 +365,13 @@ namespace ZTools
             Source = UnityEngine.Video.VideoSource.VideoClip;
             Clip = clip;
             videoPlayer.Prepare();
-            StartCoroutine(IsVideoReady(() =>
-            {
-                isVideoPlayEnd = false;
-                TxtLength = GetVideoTime(VideoLength);
-                Play();
-            }));
+            videoPlayer.prepareCompleted += VideoComplete;
         }
-        IEnumerator IsVideoReady(Action callBak)
+        void VideoComplete(VideoPlayer video)
         {
-            while (!videoPlayer.isPrepared)
-            {
-                yield return null;
-            }
-            callBak();
+            isVideoPlayEnd = false;
+            TxtLength = GetVideoTime(VideoLength);
+            Play();
         }
         /// <summary>
         /// 更新进度条和时间
@@ -481,12 +469,14 @@ namespace ZTools
             sliderTime.value = 0;
             txtTime.text = "00:00";
             renderTexture.Release();
+            videoPlayer.prepareCompleted -= VideoComplete;
         }
         private void OnDestroy()
         {
             sliderTime.value = 0;
             txtTime.text = "00:00";
             renderTexture.Release();
+            videoPlayer.prepareCompleted -= VideoComplete;
         }
     }
 }
